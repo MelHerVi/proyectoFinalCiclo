@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F014D6E-A118-4267-9019-11126121E463}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>gestion_Documental</RootNamespace>
+    <AssemblyName>gestion_Documental</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.13\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>G:\Librerias WPF\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Modelo\DAL\centroeducativo.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\centrotrabajo.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\documentos.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\empresa.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\gestionDocumental.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>gestionDocumental.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\gestionDocumental.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\gestionDocumental.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>gestionDocumental.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\permisos.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\responsable.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\rol.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\DAL\usuarios.cs">
+      <DependentUpon>gestionDocumental.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Modelo\Servicios\CentroEducativoService.cs" />
+    <Compile Include="Modelo\Servicios\CentroTrabajoService.cs" />
+    <Compile Include="Modelo\Servicios\DocumentoServicio.cs" />
+    <Compile Include="Modelo\Servicios\EmpresaService.cs" />
+    <Compile Include="Modelo\Servicios\IServicioGenerico.cs" />
+    <Compile Include="Modelo\Servicios\PermisoService.cs" />
+    <Compile Include="Modelo\Servicios\ResponsableService.cs" />
+    <Compile Include="Modelo\Servicios\RolService.cs" />
+    <Compile Include="Modelo\Servicios\ServicioGenerico.cs" />
+    <Compile Include="Modelo\Servicios\UsuarioServicio.cs" />
+    <Compile Include="MVVM\MVListaConciertos.cs" />
+    <Compile Include="Vista\ControlesUsuario\UCListaDocumentos.xaml.cs">
+      <DependentUpon>UCListaDocumentos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Dialogos\CambioPasswordDialog.xaml.cs">
+      <DependentUpon>CambioPasswordDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vista\Dialogos\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Recursos\Estilos\Estilos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Vista\ControlesUsuario\UCListaDocumentos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vista\Dialogos\CambioPasswordDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vista\Dialogos\LoginDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MVVM\MVBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="Recursos\Iconos\borrarFiltro.png" />
+    <Resource Include="Recursos\Iconos\filtrar.png" />
+    <Resource Include="Recursos\Iconos\mostrarDocumento.png" />
+    <Resource Include="Recursos\Iconos\papeleraMenuContextual.png" />
+    <Resource Include="Recursos\Iconos\anyadir.png" />
+    <Resource Include="Recursos\Iconos\editar.png" />
+    <Resource Include="Recursos\Iconos\eliminar.png" />
+    <Resource Include="Recursos\Iconos\imprimir.png" />
+    <Resource Include="Recursos\Iconos\informeGrafico.png" />
+    <Resource Include="Recursos\Iconos\informes.png" />
+    <Resource Include="Recursos\Iconos\conciertos.png" />
+    <Resource Include="Recursos\Iconos\user.png" />
+    <Resource Include="Recursos\Iconos\cambiarPass.png" />
+    <Resource Include="Recursos\Iconos\cerrarSesion.png" />
+    <Resource Include="Recursos\Iconos\panelControl.png" />
+    <Resource Include="Recursos\Iconos\logoApp.png" />
+    <Resource Include="Recursos\Iconos\Error.png" />
+    <Resource Include="Recursos\Iconos\logoLogin.png" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="Modelo\DAL\gestionDocumental.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>gestionDocumental.edmx</DependentUpon>
+      <LastGenOutput>gestionDocumental.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Modelo\DAL\gestionDocumental.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>gestionDocumental.edmx</DependentUpon>
+      <LastGenOutput>gestionDocumental.cs</LastGenOutput>
+    </Content>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Modelo\DAL\gestionDocumental.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>gestionDocumental.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Modelo\DAL\gestionDocumental.edmx.diagram">
+      <DependentUpon>gestionDocumental.edmx</DependentUpon>
+    </None>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Recursos\Imagenes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

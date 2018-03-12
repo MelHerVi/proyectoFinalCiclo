@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="gestiondocumentalModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="centroeducativo">
+          <Key>
+            <PropertyRef Name="id_centroEducativo" />
+          </Key>
+          <Property Name="id_centroEducativo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_director" Type="varchar" MaxLength="20" />
+          <Property Name="direccion" Type="varchar" MaxLength="40" />
+          <Property Name="CIF" Type="varchar" MaxLength="12" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="fax" Type="int" />
+          <Property Name="cp" Type="int" />
+          <Property Name="nombreCentro" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="centrotrabajo">
+          <Key>
+            <PropertyRef Name="id_centroTrabajo" />
+          </Key>
+          <Property Name="id_centroTrabajo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_empresa" Type="int" />
+          <Property Name="direccion" Type="varchar" MaxLength="40" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="nombreCentro" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="documentos">
+          <Key>
+            <PropertyRef Name="id_documento" />
+          </Key>
+          <Property Name="id_documento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_centroEducativo" Type="int" />
+          <Property Name="id_empresa" Type="int" />
+          <Property Name="num_concierto" Type="int" Nullable="false" />
+          <Property Name="fecha_firma" Type="date" Nullable="false" />
+          <Property Name="rutaDocumento" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="id_empresa" />
+          </Key>
+          <Property Name="id_empresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="razon_social" Type="varchar" MaxLength="20" />
+          <Property Name="direccion" Type="varchar" MaxLength="40" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="CIF" Type="varchar" MaxLength="12" />
+          <Property Name="localidad" Type="varchar" MaxLength="40" />
+          <Property Name="provincia" Type="varchar" MaxLength="40" />
+          <Property Name="fax" Type="int" />
+          <Property Name="cp" Type="int" />
+          <Property Name="id_responsable" Type="int" />
+        </EntityType>
+        <EntityType Name="permisos">
+          <Key>
+            <PropertyRef Name="id_permiso" />
+          </Key>
+          <Property Name="id_permiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="responsable">
+          <Key>
+            <PropertyRef Name="id_Responsable" />
+          </Key>
+          <Property Name="id_Responsable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DNI" Type="varchar" MaxLength="10" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" />
+          <Property Name="apellidos" Type="varchar" MaxLength="30" />
+          <Property Name="correo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoRol" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="rolpermisos">
+          <Key>
+            <PropertyRef Name="id_permiso" />
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_permiso" Type="int" Nullable="false" />
+          <Property Name="id_rol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_rol" Type="int" />
+          <Property Name="id_centroEducativo" Type="int" />
+          <Property Name="observaciones" Type="varchar" MaxLength="100" />
+          <Property Name="username" Type="varchar" MaxLength="45" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+          <Property Name="apellido1" Type="varchar" MaxLength="45" />
+          <Property Name="apellido2" Type="varchar" MaxLength="45" />
+          <Property Name="fecha_alta" Type="date" />
+          <Property Name="fecha_baja" Type="date" />
+        </EntityType>
+        <Association Name="centrotrabajo_ibfk_1">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1" />
+          <End Role="centrotrabajo" Type="Self.centrotrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="centrotrabajo">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="documentos_ibfk_1">
+          <End Role="centroeducativo" Type="Self.centroeducativo" Multiplicity="0..1" />
+          <End Role="documentos" Type="Self.documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="centroeducativo">
+              <PropertyRef Name="id_centroEducativo" />
+            </Principal>
+            <Dependent Role="documentos">
+              <PropertyRef Name="id_centroEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="documentos_ibfk_2">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1" />
+          <End Role="documentos" Type="Self.documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="documentos">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_responsable">
+          <End Role="responsable" Type="Self.responsable" Multiplicity="0..1" />
+          <End Role="empresa" Type="Self.empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="responsable">
+              <PropertyRef Name="id_Responsable" />
+            </Principal>
+            <Dependent Role="empresa">
+              <PropertyRef Name="id_responsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolpermisos_ibfk_1">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
+          <End Role="rolpermisos" Type="Self.rolpermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="id_permiso" />
+            </Principal>
+            <Dependent Role="rolpermisos">
+              <PropertyRef Name="id_permiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolpermisos_ibfk_2">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="rolpermisos" Type="Self.rolpermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="rolpermisos">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuarios_ibfk_1">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuarios_ibfk_2">
+          <End Role="centroeducativo" Type="Self.centroeducativo" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="centroeducativo">
+              <PropertyRef Name="id_centroEducativo" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="id_centroEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gestiondocumentalModelStoreContainer">
+          <EntitySet Name="centroeducativo" EntityType="Self.centroeducativo" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="centrotrabajo" EntityType="Self.centrotrabajo" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="documentos" EntityType="Self.documentos" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="empresa" EntityType="Self.empresa" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="permisos" EntityType="Self.permisos" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="responsable" EntityType="Self.responsable" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="rol" EntityType="Self.rol" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="rolpermisos" EntityType="Self.rolpermisos" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="proyecto_melchorherrera_gestiondocumental" store:Type="Tables" />
+          <AssociationSet Name="centrotrabajo_ibfk_1" Association="Self.centrotrabajo_ibfk_1">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="centrotrabajo" EntitySet="centrotrabajo" />
+          </AssociationSet>
+          <AssociationSet Name="documentos_ibfk_1" Association="Self.documentos_ibfk_1">
+            <End Role="centroeducativo" EntitySet="centroeducativo" />
+            <End Role="documentos" EntitySet="documentos" />
+          </AssociationSet>
+          <AssociationSet Name="documentos_ibfk_2" Association="Self.documentos_ibfk_2">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="documentos" EntitySet="documentos" />
+          </AssociationSet>
+          <AssociationSet Name="id_responsable" Association="Self.id_responsable">
+            <End Role="responsable" EntitySet="responsable" />
+            <End Role="empresa" EntitySet="empresa" />
+          </AssociationSet>
+          <AssociationSet Name="rolpermisos_ibfk_1" Association="Self.rolpermisos_ibfk_1">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rolpermisos" EntitySet="rolpermisos" />
+          </AssociationSet>
+          <AssociationSet Name="rolpermisos_ibfk_2" Association="Self.rolpermisos_ibfk_2">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="rolpermisos" EntitySet="rolpermisos" />
+          </AssociationSet>
+          <AssociationSet Name="usuarios_ibfk_1" Association="Self.usuarios_ibfk_1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="usuarios_ibfk_2" Association="Self.usuarios_ibfk_2">
+            <End Role="centroeducativo" EntitySet="centroeducativo" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gestiondocumentalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="centroeducativo">
+          <Key>
+            <PropertyRef Name="id_centroEducativo" />
+          </Key>
+          <Property Name="id_centroEducativo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_director" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CIF" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fax" Type="Int32" />
+          <Property Name="cp" Type="Int32" />
+          <Property Name="nombreCentro" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="documentos" Relationship="Self.documentos_ibfk_1" FromRole="centroeducativo" ToRole="documentos" />
+          <NavigationProperty Name="usuarios" Relationship="Self.usuarios_ibfk_2" FromRole="centroeducativo" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="centrotrabajo">
+          <Key>
+            <PropertyRef Name="id_centroTrabajo" />
+          </Key>
+          <Property Name="id_centroTrabajo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_empresa" Type="Int32" />
+          <Property Name="direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombreCentro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="empresa" Relationship="Self.centrotrabajo_ibfk_1" FromRole="centrotrabajo" ToRole="empresa" />
+        </EntityType>
+        <EntityType Name="documentos">
+          <Key>
+            <PropertyRef Name="id_documento" />
+          </Key>
+          <Property Name="id_documento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_centroEducativo" Type="Int32" />
+          <Property Name="id_empresa" Type="Int32" />
+          <Property Name="num_concierto" Type="Int32" Nullable="false" />
+          <Property Name="fecha_firma" Type="DateTime" Nullable="false" />
+          <Property Name="rutaDocumento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="centroeducativo" Relationship="Self.documentos_ibfk_1" FromRole="documentos" ToRole="centroeducativo" />
+          <NavigationProperty Name="empresa" Relationship="Self.documentos_ibfk_2" FromRole="documentos" ToRole="empresa" />
+        </EntityType>
+        <EntityType Name="empresa">
+          <Key>
+            <PropertyRef Name="id_empresa" />
+          </Key>
+          <Property Name="id_empresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="razon_social" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CIF" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="fax" Type="Int32" />
+          <Property Name="cp" Type="Int32" />
+          <Property Name="id_responsable" Type="Int32" />
+          <NavigationProperty Name="centrotrabajo" Relationship="Self.centrotrabajo_ibfk_1" FromRole="empresa" ToRole="centrotrabajo" />
+          <NavigationProperty Name="documentos" Relationship="Self.documentos_ibfk_2" FromRole="empresa" ToRole="documentos" />
+          <NavigationProperty Name="responsable" Relationship="Self.id_responsable" FromRole="empresa" ToRole="responsable" />
+        </EntityType>
+        <EntityType Name="permisos">
+          <Key>
+            <PropertyRef Name="id_permiso" />
+          </Key>
+          <Property Name="id_permiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="rol" Relationship="Self.rolpermisos" FromRole="permisos" ToRole="rol" />
+        </EntityType>
+        <EntityType Name="responsable">
+          <Key>
+            <PropertyRef Name="id_Responsable" />
+          </Key>
+          <Property Name="id_Responsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DNI" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="empresa" Relationship="Self.id_responsable" FromRole="responsable" ToRole="empresa" />
+        </EntityType>
+        <EntityType Name="rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoRol" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios" Relationship="Self.usuarios_ibfk_1" FromRole="rol" ToRole="usuarios" />
+          <NavigationProperty Name="permisos" Relationship="Self.rolpermisos" FromRole="rol" ToRole="permisos" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_rol" Type="Int32" />
+          <Property Name="id_centroEducativo" Type="Int32" />
+          <Property Name="observaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido1" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="apellido2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" />
+          <Property Name="fecha_baja" Type="DateTime" />
+          <NavigationProperty Name="centroeducativo" Relationship="Self.usuarios_ibfk_2" FromRole="usuarios" ToRole="centroeducativo" />
+          <NavigationProperty Name="rol" Relationship="Self.usuarios_ibfk_1" FromRole="usuarios" ToRole="rol" />
+        </EntityType>
+        <Association Name="documentos_ibfk_1">
+          <End Role="centroeducativo" Type="Self.centroeducativo" Multiplicity="0..1" />
+          <End Role="documentos" Type="Self.documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="centroeducativo">
+              <PropertyRef Name="id_centroEducativo" />
+            </Principal>
+            <Dependent Role="documentos">
+              <PropertyRef Name="id_centroEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuarios_ibfk_2">
+          <End Role="centroeducativo" Type="Self.centroeducativo" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="centroeducativo">
+              <PropertyRef Name="id_centroEducativo" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="id_centroEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="centrotrabajo_ibfk_1">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1" />
+          <End Role="centrotrabajo" Type="Self.centrotrabajo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="centrotrabajo">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="documentos_ibfk_2">
+          <End Role="empresa" Type="Self.empresa" Multiplicity="0..1" />
+          <End Role="documentos" Type="Self.documentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="documentos">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_responsable">
+          <End Role="responsable" Type="Self.responsable" Multiplicity="0..1" />
+          <End Role="empresa" Type="Self.empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="responsable">
+              <PropertyRef Name="id_Responsable" />
+            </Principal>
+            <Dependent Role="empresa">
+              <PropertyRef Name="id_responsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usuarios_ibfk_1">
+          <End Role="rol" Type="Self.rol" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rolpermisos">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="*" />
+          <End Role="rol" Type="Self.rol" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="gestiondocumentalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="centroeducativo" EntityType="Self.centroeducativo" />
+          <EntitySet Name="centrotrabajo" EntityType="Self.centrotrabajo" />
+          <EntitySet Name="documentos" EntityType="Self.documentos" />
+          <EntitySet Name="empresa" EntityType="Self.empresa" />
+          <EntitySet Name="permisos" EntityType="Self.permisos" />
+          <EntitySet Name="responsable" EntityType="Self.responsable" />
+          <EntitySet Name="rol" EntityType="Self.rol" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <AssociationSet Name="documentos_ibfk_1" Association="Self.documentos_ibfk_1">
+            <End Role="centroeducativo" EntitySet="centroeducativo" />
+            <End Role="documentos" EntitySet="documentos" />
+          </AssociationSet>
+          <AssociationSet Name="usuarios_ibfk_2" Association="Self.usuarios_ibfk_2">
+            <End Role="centroeducativo" EntitySet="centroeducativo" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="centrotrabajo_ibfk_1" Association="Self.centrotrabajo_ibfk_1">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="centrotrabajo" EntitySet="centrotrabajo" />
+          </AssociationSet>
+          <AssociationSet Name="documentos_ibfk_2" Association="Self.documentos_ibfk_2">
+            <End Role="empresa" EntitySet="empresa" />
+            <End Role="documentos" EntitySet="documentos" />
+          </AssociationSet>
+          <AssociationSet Name="id_responsable" Association="Self.id_responsable">
+            <End Role="responsable" EntitySet="responsable" />
+            <End Role="empresa" EntitySet="empresa" />
+          </AssociationSet>
+          <AssociationSet Name="usuarios_ibfk_1" Association="Self.usuarios_ibfk_1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="rolpermisos" Association="Self.rolpermisos">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="rol" EntitySet="rol" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gestiondocumentalModelStoreContainer" CdmEntityContainer="gestiondocumentalEntities">
+          <EntitySetMapping Name="centroeducativo">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.centroeducativo">
+              <MappingFragment StoreEntitySet="centroeducativo">
+                <ScalarProperty Name="id_centroEducativo" ColumnName="id_centroEducativo" />
+                <ScalarProperty Name="nombre_director" ColumnName="nombre_director" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="CIF" ColumnName="CIF" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="cp" ColumnName="cp" />
+                <ScalarProperty Name="nombreCentro" ColumnName="nombreCentro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="centrotrabajo">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.centrotrabajo">
+              <MappingFragment StoreEntitySet="centrotrabajo">
+                <ScalarProperty Name="id_centroTrabajo" ColumnName="id_centroTrabajo" />
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="nombreCentro" ColumnName="nombreCentro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="documentos">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.documentos">
+              <MappingFragment StoreEntitySet="documentos">
+                <ScalarProperty Name="id_documento" ColumnName="id_documento" />
+                <ScalarProperty Name="id_centroEducativo" ColumnName="id_centroEducativo" />
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="num_concierto" ColumnName="num_concierto" />
+                <ScalarProperty Name="fecha_firma" ColumnName="fecha_firma" />
+                <ScalarProperty Name="rutaDocumento" ColumnName="rutaDocumento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empresa">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.empresa">
+              <MappingFragment StoreEntitySet="empresa">
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="CIF" ColumnName="CIF" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="cp" ColumnName="cp" />
+                <ScalarProperty Name="id_responsable" ColumnName="id_responsable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="permisos">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.permisos">
+              <MappingFragment StoreEntitySet="permisos">
+                <ScalarProperty Name="id_permiso" ColumnName="id_permiso" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="responsable">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.responsable">
+              <MappingFragment StoreEntitySet="responsable">
+                <ScalarProperty Name="id_Responsable" ColumnName="id_Responsable" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rol">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.rol">
+              <MappingFragment StoreEntitySet="rol">
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="tipoRol" ColumnName="tipoRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="gestiondocumentalModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="id_centroEducativo" ColumnName="id_centroEducativo" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="rolpermisos" TypeName="gestiondocumentalModel.rolpermisos" StoreEntitySet="rolpermisos">
+            <EndProperty Name="permisos">
+              <ScalarProperty Name="id_permiso" ColumnName="id_permiso" />
+            </EndProperty>
+            <EndProperty Name="rol">
+              <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

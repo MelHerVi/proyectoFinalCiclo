@@ -1,0 +1,114 @@
+﻿<Window xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"  x:Class="gestion_Documental.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gestion_Documental"
+        mc:Ignorable="d"
+        Icon="/Recursos/Iconos/logoApp.png"
+        Title="OppenGED" Height="750" Width="1250">
+
+    <Window.Resources>
+        <Style x:Key="{x:Type ContextMenu}" TargetType="{x:Type ContextMenu}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ContextMenu}">
+                        <Border Background="#CD222120" CornerRadius="7, 7, 8, 8" BorderBrush="DarkGray" BorderThickness="2" Opacity="0.96">
+                            <StackPanel ClipToBounds="True" Orientation="Vertical" IsItemsHost="True" Margin="5,4,5,4"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+
+
+
+
+    <DockPanel LastChildFill="True">
+
+
+        <Grid Background="#242728" DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Grid.Column="0" Background="#666666"/>
+
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <Label Content="OppenGED" Style="{StaticResource lblTitulo}" VerticalAlignment="Center" Margin="5,5,0,0"/>
+                <Image Source="/Recursos/Iconos/logoLogin.png" Style="{StaticResource imgTitulo}"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="btnNombreUsuario" Click="btnNombreUsuario_Click" Content="" VerticalAlignment="Center"  Width="120" Height="30" Style="{StaticResource btnNormal}">
+                    <Button.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Foreground="White" Header="Modificar contraseña" x:Name="btnModificarPass" Click="btnModificarPass_Click"/>
+                            <MenuItem Foreground="White" Header="Panel de administración" x:Name="btnPanelAdministracion" Click="btnPanelAdministracion_Click"/>
+                            <MenuItem Foreground="White" Header="Cerrar sesión" x:Name="btnCerrarSesion" Click="btnCerrarSesion_Click"/>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Image Source="/Recursos/Iconos/user.png" Height="28" Margin="0,0,30,0"/>
+            </StackPanel>
+
+            <Border Grid.Row="1" Background="LightGray"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="30,0,0,0">
+
+                <Button  Style="{StaticResource btnPrincipal}" x:Name="btnConciertos" Click="btnConciertos_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Conciertos" Foreground="White"/>
+                        <Image Source="/Recursos/Iconos/conciertos.png" Height="25"/>
+                    </StackPanel>
+                </Button>
+
+                <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="#032848" Margin="10,0,10,0" Height="50"/>
+
+                <Button Style="{StaticResource btnPrincipal}" x:Name="btnInformes" Click="btnInformes_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Informes" Foreground="White"/>
+                        <Image Source="/Recursos/Iconos/informes.png" Height="25"/>
+                    </StackPanel>
+                </Button>
+
+
+
+                <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="#032848" Margin="10,0,10,0" Height="50"/>
+
+                <Button Style="{StaticResource btnPrincipal}" x:Name="btnGraficos" Click="btnGraficos_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Gráficos" Foreground="White"/>
+                        <Image Source="/Recursos/Iconos/informeGrafico.png" Height="25"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid DockPanel.Dock="Bottom" Background="#242728">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Foreground="White" x:Name="txtHora" HorizontalAlignment="Right" Margin="5"/>
+                <TextBlock Foreground="White" x:Name="txtFecha" Margin="5"/>
+            </StackPanel>
+        </Grid>
+
+   
+
+        <Grid x:Name="gridCentral" Background="#242728">
+            
+            
+        </Grid>
+
+        
+    </DockPanel>
+</Window>

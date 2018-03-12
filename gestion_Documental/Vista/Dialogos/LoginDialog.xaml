@@ -1,0 +1,64 @@
+﻿<Window x:Class="gestion_Documental.Vista.Dialogos.LoginDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:gestion_Documental.Vista.Dialogos"
+        mc:Ignorable="d"
+        Icon="/Recursos/Iconos/logoApp.png"
+        FocusManager.FocusedElement="{Binding ElementName=txtNombreUsuario}"
+        Title="OppenGED" Height="390" Width="610">
+    
+    <DockPanel>
+
+        <Grid Background="#242728" DockPanel.Dock="Top" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+            <Label Content="OppenGED" Style="{StaticResource lblTitulo}" VerticalAlignment="Center" Margin="5,5,0,0"/>
+            <Image Source="/Recursos/Iconos/logoLogin.png" Style="{StaticResource imgTitulo}"/>
+            </StackPanel>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="/Recursos/Iconos/Error.png"  Height="24" Grid.Row="2" x:Name="imgNombreUsuario" VerticalAlignment="Center" Visibility="Hidden"/>
+                <Image Source="/Recursos/Iconos/Error.png"  Height="24" Grid.Row="4" x:Name="imgPassword" VerticalAlignment="Center" Margin="0,9,0,0" Visibility="Hidden"/>
+
+                <Label Content="LOGIN" Foreground="White" FontSize="22" Margin="0,10,0,0" Grid.Column="1"/>
+                <Label Content="Username: " Grid.Row="1" Margin="0,10,0,0" Foreground="White" Grid.Column="1"/>
+                <TextBox x:Name="txtNombreUsuario" Grid.Row="2" Height="22" Width="200" Grid.Column="1"/>
+                <Label Content="Password: " Grid.Row="3" Margin="0,10,0,0" Foreground="White" Grid.Column="1"/>
+                <PasswordBox x:Name="pwdPassword" Grid.Row="4" Margin="0,10,0,0" Height="22" Width="200" Grid.Column="1"/>
+
+                <Button Style="{StaticResource btnNormal}" IsDefault="True" Grid.Row="5" Margin="0,40,0,0" Content="Login" HorizontalAlignment="Left" x:Name="btnLogin" Click="btnLogin_Click" Grid.Column="1"/>
+                <Button Style="{StaticResource btnNormal}" IsCancel="True" Grid.Row="5" Margin="0,40,0,0" Content="Cancelar"  HorizontalAlignment="Right" x:Name="btnCancel" Click="btnCancel_Click" Grid.Column="1"/>
+
+
+                <TextBlock Text="" Foreground="Red" Grid.Row="6" Grid.Column="1" Margin="0,20,0,0" FontSize="13" x:Name="txtMensajeError"/>
+
+
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
